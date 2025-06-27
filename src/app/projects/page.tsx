@@ -43,14 +43,14 @@ const GlassyFilterButton = styled(motion.button)<{ $active: boolean }>`
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   cursor: pointer;
-  border: 2px solid rgba(200,200,200,0.25);
-  background: rgba(255,255,255,0.35);
-  color: ${({ theme }) => theme.colors.text.primary};
+  border: 2px solid ${({ $active, theme }) => ($active ? theme.colors.primary : 'rgba(200,200,200,0.25)')};
+  background: ${({ $active }) => ($active ? 'rgba(96, 165, 250, 0.25)' : 'rgba(255,255,255,0.15)')};
+  color: ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.text.primary)};
   backdrop-filter: blur(10px) saturate(180%);
-  box-shadow: 0 4px 24px 0 rgba(60,60,100,0.08);
   transition: all ${({ theme }) => theme.transitions.base};
+
   &:hover, &:focus {
-    background: rgba(255,255,255,0.55);
+    background: rgba(96, 165, 250, 0.3);
     color: ${({ theme }) => theme.colors.primary};
     border-color: ${({ theme }) => theme.colors.primary};
     transform: translateY(-2px) scale(1.03);
@@ -65,12 +65,14 @@ const ProjectsGrid = styled.div`
 `;
 
 const ProjectCard = styled(motion.article)`
-  background: ${({ theme }) => theme.colors.background};
-  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px) saturate(180%);
   border-radius: ${({ theme }) => theme.borderRadius['2xl']};
   overflow: hidden;
-  transition: all ${({ theme }) => theme.transitions.base};
   cursor: pointer;
+  transition: all ${({ theme }) => theme.transitions.base};
+  color: ${({ theme }) => theme.colors.text.primary};
 
   &:hover {
     transform: translateY(-8px);
@@ -97,7 +99,6 @@ const ProjectContent = styled.div`
 const ProjectTitle = styled.h3`
   font-size: ${({ theme }) => theme.fontSizes['2xl']};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
-  color: ${({ theme }) => theme.colors.text.primary};
   margin-bottom: ${({ theme }) => theme.spacing[3]};
 `;
 
@@ -115,12 +116,14 @@ const ProjectTags = styled.div`
 `;
 
 const Tag = styled.span`
-  background: ${({ theme }) => theme.colors.primary}20;
+  background: rgba(96, 165, 250, 0.18);
   color: ${({ theme }) => theme.colors.primary};
   padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[2]};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-size: ${({ theme }) => theme.fontSizes.xs};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
 `;
 
 const ProjectLinks = styled.div`
@@ -149,9 +152,9 @@ const projects = [
   {
     id: 'portfolio',
     title: 'Portfolio Website',
-    description: 'A modern, responsive portfolio built with Next.js and styled-components. Features smooth animations, dark mode, and a blog section.',
+    description: 'Responsive portfolio with animations, dark mode, and blog.',
     image: '🎨',
-    tags: ['Next.js', 'React', 'TypeScript', 'Styled Components'],
+    tags: ['Next.js', 'React', 'TypeScript'],
     category: 'web',
     liveUrl: 'https://yourportfolio.com',
     githubUrl: 'https://github.com/yourusername/portfolio',
@@ -159,9 +162,9 @@ const projects = [
   {
     id: 'task-app',
     title: 'Task Management App',
-    description: 'A beautiful task management application with drag-and-drop functionality, real-time updates, and team collaboration features.',
+    description: 'Drag-and-drop Kanban with real-time updates and team collaboration.',
     image: '📋',
-    tags: ['React', 'Node.js', 'MongoDB', 'Socket.io'],
+    tags: ['React', 'Node.js', 'MongoDB'],
     category: 'fullstack',
     liveUrl: 'https://taskapp.com',
     githubUrl: 'https://github.com/yourusername/task-app',
@@ -169,9 +172,9 @@ const projects = [
   {
     id: 'ecommerce',
     title: 'E-commerce Platform',
-    description: 'A full-featured e-commerce platform with payment integration, inventory management, and admin dashboard.',
+    description: 'Full-featured e-commerce with payment and inventory management.',
     image: '🛒',
-    tags: ['Next.js', 'Stripe', 'PostgreSQL', 'Prisma'],
+    tags: ['Next.js', 'Stripe', 'PostgreSQL'],
     category: 'fullstack',
     liveUrl: 'https://ecommerce.com',
     githubUrl: 'https://github.com/yourusername/ecommerce',
@@ -179,9 +182,9 @@ const projects = [
   {
     id: 'weather-app',
     title: 'Weather Dashboard',
-    description: 'A beautiful weather application with location-based forecasts, interactive maps, and weather alerts.',
+    description: 'Location-based weather forecasts with beautiful charts and maps.',
     image: '🌤️',
-    tags: ['React', 'TypeScript', 'OpenWeather API', 'Chart.js'],
+    tags: ['React', 'TypeScript', 'OpenWeather API'],
     category: 'web',
     liveUrl: 'https://weather-app.com',
     githubUrl: 'https://github.com/yourusername/weather-app',
@@ -189,9 +192,9 @@ const projects = [
   {
     id: 'chat-app',
     title: 'Real-time Chat App',
-    description: 'A modern chat application with real-time messaging, file sharing, and video calling capabilities.',
+    description: 'Real-time messaging with WebSocket and WebRTC video calling.',
     image: '💬',
-    tags: ['React', 'Socket.io', 'WebRTC', 'Express'],
+    tags: ['React', 'Socket.io', 'WebRTC'],
     category: 'fullstack',
     liveUrl: 'https://chat-app.com',
     githubUrl: 'https://github.com/yourusername/chat-app',
@@ -199,12 +202,32 @@ const projects = [
   {
     id: 'mobile-app',
     title: 'Mobile Fitness App',
-    description: 'A cross-platform mobile app for tracking workouts, nutrition, and fitness goals with social features.',
+    description: 'Cross-platform app for tracking workouts, goals, and nutrition.',
     image: '💪',
-    tags: ['React Native', 'Firebase', 'Redux', 'Expo'],
+    tags: ['React Native', 'Firebase', 'Expo'],
     category: 'mobile',
     liveUrl: 'https://fitness-app.com',
     githubUrl: 'https://github.com/yourusername/fitness-app',
+  },
+  {
+    id: 'blog-cms',
+    title: 'Headless Blog CMS',
+    description: 'Next.js blog powered by a headless CMS with Markdown and GraphQL.',
+    image: '📝',
+    tags: ['Next.js', 'GraphQL', 'Headless CMS'],
+    category: 'web',
+    liveUrl: 'https://blog-cms.com',
+    githubUrl: 'https://github.com/yourusername/blog-cms',
+  },
+  {
+    id: 'video-editor',
+    title: 'Web-based Video Editor',
+    description: 'Online video editor with trimming, cropping, and filters.',
+    image: '🎥',
+    tags: ['React', 'FFmpeg', 'WebAssembly'],
+    category: 'web',
+    liveUrl: 'https://video-editor.com',
+    githubUrl: 'https://github.com/yourusername/video-editor',
   },
 ];
 
@@ -218,8 +241,8 @@ const categories = [
 export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const filteredProjects = activeCategory === 'all' 
-    ? projects 
+  const filteredProjects = activeCategory === 'all'
+    ? projects
     : projects.filter(project => project.category === activeCategory);
 
   return (
@@ -237,7 +260,7 @@ export default function ProjectsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          Placeholder
+          A collection of my favorite projects showcasing design, backend, and full-stack development skills.
         </ProjectsDescription>
       </ProjectsHeader>
 
@@ -268,9 +291,7 @@ export default function ProjectsPage() {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             whileHover={{ y: -8 }}
           >
-            <ProjectImage>
-              {project.image}
-            </ProjectImage>
+            <ProjectImage>{project.image}</ProjectImage>
             <ProjectContent>
               <ProjectTitle>{project.title}</ProjectTitle>
               <ProjectDescription>{project.description}</ProjectDescription>
@@ -305,4 +326,4 @@ export default function ProjectsPage() {
       </ProjectsGrid>
     </ProjectsContainer>
   );
-} 
+}

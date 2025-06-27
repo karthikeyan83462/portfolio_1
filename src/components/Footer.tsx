@@ -57,11 +57,6 @@ const Copyright = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
 `;
 
-const Heart = styled(motion.span)`
-  color: #ef4444;
-  display: inline-block;
-  margin: 0 4px;
-`;
 
 const socialLinks = [
   {
@@ -111,13 +106,7 @@ export default function Footer() {
         </SocialLinks>
 
         <Copyright>
-          <Heart
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1, repeat: Infinity }}
-          >
-            ❤️
-          </Heart>
-          {' '}and lots of coffee.
+          @ No copyrights
         </Copyright>
       </FooterContent>
     </FooterContainer>
