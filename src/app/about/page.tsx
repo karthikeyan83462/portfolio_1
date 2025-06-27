@@ -14,7 +14,6 @@ const Heading = styled(motion.h1)`
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const Subheading = styled(motion.p)`
@@ -31,7 +30,6 @@ const StoryHeading = styled.h2`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.25rem;
-  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const StoryText = styled.p`
@@ -221,7 +219,7 @@ const TimelineZigTrack = styled.div`
 `;
 
 const ZigMilestone = styled(motion.div)<{ $above: boolean }>`
-  background: ${({ theme }: { theme: { colors: { surface: string } } }) => theme.colors.surface};
+  background: ${({ theme }) => theme.colors.surface};
   border-radius: 1.25rem;
   box-shadow: 0 2px 12px 0 rgba(60, 120, 240, 0.10);
   padding: 1.5rem 1.5rem 1.2rem 1.5rem;
@@ -491,7 +489,7 @@ export default function AboutPage() {
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
-            onClick={e => e.stopPropagation()}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
           >
             <div style={{ fontSize: '2.5rem', marginBottom: 12 }}>{TIMELINE_ZIG[modalIdx].icon}</div>
             <div style={{ fontWeight: 700, fontSize: '1.3rem', marginBottom: 6 }}>{TIMELINE_ZIG[modalIdx].title}</div>

@@ -4,6 +4,14 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 const BlogContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
@@ -199,7 +207,7 @@ export default function BlogPage() {
               <BlogCardExcerpt>{post.excerpt}</BlogCardExcerpt>
               <BlogCardMeta>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <BlogCardDate>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</BlogCardDate>
+                  <BlogCardDate>{formatDate(post.date)}</BlogCardDate>
                   <BlogCardDate>{post.readTime}</BlogCardDate>
                 </div>
                 <BlogCardTags>

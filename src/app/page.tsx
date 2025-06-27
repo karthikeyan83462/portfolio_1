@@ -36,6 +36,14 @@ const featuredProjects = [
   },
 ];
 
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 export default function HomePage() {
   return (
     <>
@@ -109,7 +117,7 @@ export default function HomePage() {
                   <CardTitle>{post.title}</CardTitle>
                   <CardDescription>{post.description}</CardDescription>
                   <CardMeta>
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                    <span>{formatDate(post.date)}</span>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       {post.tags.map(tag => (
                         <Tag key={tag}>{tag}</Tag>
